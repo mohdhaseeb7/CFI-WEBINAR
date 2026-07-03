@@ -24,13 +24,13 @@ export const WEBINAR_CONFIG = {
   
   // Webinar details (dates, platform, etc.)
   details: {
-    date: "Sunday, 4 July",
-    time: "6:00 PM – 7:00 PM (IST)",
+    date: "Wednesday, 8 July",
+    time: "7:00 PM – 8:00 PM (IST)",
     timezone: "IST",
     location: "Live Interactive Broadcast",
     locationDetail: "Access link sent upon registration",
     duration: "1 hour",
-    countdownDateStr: "2026-07-04T18:00:00", // ISO date string for countdown timer
+    countdownDateStr: "2026-07-08T19:00:00", // ISO date string for countdown timer
   },
   
   // Instructor details
@@ -38,14 +38,12 @@ export const WEBINAR_CONFIG = {
     sectionTitle: "Meet Our Engineer",
     sectionSubtitle: "Learn directly from an experienced veteran who knows how to explain complex things simply.",
     name: "Omer Ahmed Quadri",
-    role: "Full Stack Engineer & Mentor",
-    photoUrl: "/instructor-photo.jpg",
+    role: "Software Engineer & Lead Instructor",
+    photoUrl: "/instructor.png",
     badge: "Live Instructor",
-    bio: "Omer has spent years working as a full stack developer, and just as many years teaching beginners how to get started. They've sat where you're sitting: unsure if tech was \"for them,\" uncertain where to begin. That experience shapes how they teach now, with patience, plain language, and a genuine belief that anyone can learn this if they're given a clear starting point.",
+    bio: "Omer is a Software Engineer and Lead Instructor at Code for India. His experience spans Full-Stack Development, DevOps practices, IoT, and mentoring, where he helps aspiring developers master modern web technologies and successfully transition their careers into tech.",
     credentials: [
-      { icon: "Briefcase", text: "5+ years professional Full Stack experience" },
-      { icon: "Users", text: "Taught and mentored 1,000+ beginner coders" },
-      { icon: "Award", text: "Govt. of Telangana Accredited Course Architect" },
+      { icon: "Briefcase", text: "Software Engineer & Lead Instructor at Code for India" },
     ],
     ctaText: "Reserve My Seat",
     ctaSubtext: "Join Omer for this live interactive Q&A",

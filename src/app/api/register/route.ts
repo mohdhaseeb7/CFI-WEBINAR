@@ -19,11 +19,11 @@ const ensureDbExists = () => {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, phone } = body;
+    const { name, email, phone, countryCode, qualification, goals } = body;
 
-    if (!name || !email || !phone) {
+    if (!name || !email || !phone || !qualification) {
       return NextResponse.json(
-        { error: "Name, email, and phone number are required." },
+        { error: "Name, email, phone number, and qualification are required." },
         { status: 400 }
       );
     }
@@ -49,6 +49,9 @@ export async function POST(request: Request) {
       name,
       email,
       phone,
+      countryCode: countryCode || "+91",
+      qualification,
+      goals: goals || "",
       registeredAt: new Date().toISOString(),
     };
 

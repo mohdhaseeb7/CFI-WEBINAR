@@ -9,13 +9,55 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [countryCode, setCountryCode] = useState("+91");
+  const [qualification, setQualification] = useState("");
+  const [goals, setGoals] = useState("");
+
+  // OTP Verification States
+  const [otp, setOtp] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpSending, setOtpSending] = useState(false);
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [otpError, setOtpError] = useState("");
+  const [otpSuccess, setOtpSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
 
+  const handleSendOtp = async () => {
+    if (!email) {
+      setOtpError("Please enter your email address first.");
+      return;
+    }
+    setOtpSending(true);
+    setOtpError("");
+    setOtpSuccess("");
+    
+    // Simulate API request to send OTP
+    setTimeout(() => {
+      setOtpSending(false);
+      setOtpSent(true);
+      setOtpSuccess("OTP sent! Enter 123456 to verify.");
+    }, 1000);
+  };
+
+  const handleVerifyOtp = () => {
+    if (otp === "123456") {
+      setIsEmailVerified(true);
+      setOtpError("");
+      setOtpSuccess("Email verified successfully!");
+    } else {
+      setOtpError("Invalid OTP. Please enter 123456.");
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email || !phone) return;
+    if (!name || !email || !phone || !qualification) return;
+    if (!isEmailVerified) {
+      setOtpError("Please verify your email with OTP before enrolling.");
+      return;
+    }
 
     setLoading(true);
     setStatus("idle");
@@ -24,7 +66,7 @@ export default function RegisterPage() {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone }),
+        body: JSON.stringify({ name, email, phone, countryCode, qualification, goals }),
       });
 
       const data = await res.json();
@@ -136,15 +178,15 @@ export default function RegisterPage() {
               /* Form State */
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900 font-display">Register For The Live Session</h2>
-                  <p className="text-xs text-gray-400 font-semibold mt-1">Please enter your real contact details</p>
+                  <h2 className="text-2xl font-bold text-gray-900 font-display">Enroll For Full Stack Web Development + AI</h2>
+                  <p className="text-xs text-gray-400 font-semibold mt-1">Secure your seat for the current batch.</p>
                 </div>
 
                 <div className="flex flex-col gap-4">
                   {/* Name field */}
                   <div className="flex flex-col gap-1.5 text-left">
                     <label htmlFor="name" className="text-xs font-bold uppercase tracking-wider text-gray-500">
-                      Full Name
+                      Name *
                     </label>
                     <input
                       type="text"
@@ -152,7 +194,7 @@ export default function RegisterPage() {
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="e.g. John Doe"
+                      placeholder="Enter your full name"
                       className="w-full rounded-2xl border border-gray-200 bg-white px-5 py-4 text-sm font-semibold text-gray-800 placeholder-gray-400 shadow-sm transition-all focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500"
                     />
                   </div>
@@ -160,32 +202,133 @@ export default function RegisterPage() {
                   {/* Email field */}
                   <div className="flex flex-col gap-1.5 text-left">
                     <label htmlFor="email" className="text-xs font-bold uppercase tracking-wider text-gray-500">
-                      Email Address
+                      Email *
                     </label>
-                    <input
-                      type="email"
-                      id="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="e.g. john@example.com"
-                      className="w-full rounded-2xl border border-gray-200 bg-white px-5 py-4 text-sm font-semibold text-gray-800 placeholder-gray-400 shadow-sm transition-all focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500"
-                    />
+                    <div className="flex gap-2">
+                      <input
+                        type="email"
+                        id="email"
+                        required
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          setIsEmailVerified(false);
+                          setOtpSent(false);
+                          setOtpSuccess("");
+                          setOtpError("");
+                        }}
+                        placeholder="you@email.com"
+                        className="flex-1 min-w-0 rounded-2xl border border-gray-200 bg-white px-5 py-4 text-sm font-semibold text-gray-800 placeholder-gray-400 shadow-sm focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleSendOtp}
+                        disabled={otpSending || isEmailVerified}
+                        className="rounded-2xl bg-[#70dbb5] hover:bg-[#5ecfa8] text-white px-5 py-4 text-sm font-bold shadow-sm transition-all disabled:opacity-50 shrink-0 cursor-pointer"
+                      >
+                        {otpSending ? "Sending..." : isEmailVerified ? "Verified" : "Send OTP"}
+                      </button>
+                    </div>
+                    {otpSuccess && <p className="text-[11px] font-bold text-emerald-600 mt-1">{otpSuccess}</p>}
+                    {otpError && <p className="text-[11px] font-bold text-red-500 mt-1">{otpError}</p>}
                   </div>
+
+                  {/* OTP Input Field */}
+                  {otpSent && !isEmailVerified && (
+                    <div className="flex flex-col gap-1.5 text-left animate-in slide-in-from-top duration-300">
+                      <label htmlFor="otp" className="text-xs font-bold uppercase tracking-wider text-gray-500">
+                        Enter OTP *
+                      </label>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          id="otp"
+                          value={otp}
+                          onChange={(e) => setOtp(e.target.value)}
+                          placeholder="Enter 6-digit OTP"
+                          className="flex-1 min-w-0 rounded-2xl border border-gray-200 bg-white px-5 py-4 text-sm font-semibold text-gray-800 placeholder-gray-400 shadow-sm focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500"
+                        />
+                        <button
+                          type="button"
+                          onClick={handleVerifyOtp}
+                          className="rounded-2xl bg-violet-600 hover:bg-violet-700 text-white px-6 py-4 text-sm font-bold shadow-sm transition-all cursor-pointer"
+                        >
+                          Verify OTP
+                        </button>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Phone field */}
                   <div className="flex flex-col gap-1.5 text-left">
                     <label htmlFor="phone" className="text-xs font-bold uppercase tracking-wider text-gray-500">
-                      Phone Number
+                      Phone Number *
                     </label>
-                    <input
-                      type="tel"
-                      id="phone"
+                    <div className="flex gap-2">
+                      <select
+                        id="countryCode"
+                        value={countryCode}
+                        onChange={(e) => setCountryCode(e.target.value)}
+                        className="rounded-2xl border border-gray-200 bg-white px-4 py-4 text-sm font-semibold text-gray-800 shadow-sm focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500 cursor-pointer"
+                      >
+                        <option value="+91">India (+91)</option>
+                        <option value="+1">United States (+1)</option>
+                        <option value="+44">United Kingdom (+44)</option>
+                        <option value="+1-ca">Canada (+1)</option>
+                        <option value="+61">Australia (+61)</option>
+                        <option value="+966">Saudi Arabia (+966)</option>
+                        <option value="+971">UAE (+971)</option>
+                      </select>
+                      <input
+                        type="tel"
+                        id="phone"
+                        required
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder="9876543210"
+                        className="flex-1 min-w-0 rounded-2xl border border-gray-200 bg-white px-5 py-4 text-sm font-semibold text-gray-800 placeholder-gray-400 shadow-sm focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Qualification field */}
+                  <div className="flex flex-col gap-1.5 text-left">
+                    <label htmlFor="qualification" className="text-xs font-bold uppercase tracking-wider text-gray-500">
+                      What do you do? (Qualification) *
+                    </label>
+                    <select
+                      id="qualification"
                       required
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="e.g. +91 98765 43210"
-                      className="w-full rounded-2xl border border-gray-200 bg-white px-5 py-4 text-sm font-semibold text-gray-800 placeholder-gray-400 shadow-sm transition-all focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500"
+                      value={qualification}
+                      onChange={(e) => setQualification(e.target.value)}
+                      className="w-full rounded-2xl border border-violet-500 bg-white px-5 py-4 text-sm font-semibold text-gray-800 shadow-sm focus:border-violet-600 focus:outline-none focus:ring-1 focus:ring-violet-600 cursor-pointer"
+                    >
+                      <option value="">Select...</option>
+                      <option value="School Student (+2)">School Student (+2)</option>
+                      <option value="College Student - Engineering">College Student - Engineering</option>
+                      <option value="College Student - Commerce">College Student - Commerce</option>
+                      <option value="College Student - Other">College Student - Other</option>
+                      <option value="Working Professional - Startup">Working Professional - Startup</option>
+                      <option value="Working Professional - MNC">Working Professional - MNC</option>
+                      <option value="Entrepreneur / Founder">Entrepreneur / Founder</option>
+                      <option value="Freelancer">Freelancer</option>
+                      <option value="Dropout">Dropout</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+
+                  {/* Goals field */}
+                  <div className="flex flex-col gap-1.5 text-left">
+                    <label htmlFor="goals" className="text-xs font-bold uppercase tracking-wider text-gray-500">
+                      What do you want to learn or build?
+                    </label>
+                    <textarea
+                      id="goals"
+                      rows={3}
+                      value={goals}
+                      onChange={(e) => setGoals(e.target.value)}
+                      placeholder="Your goals or project ideas..."
+                      className="w-full rounded-2xl border border-gray-200 bg-white px-5 py-4 text-sm font-semibold text-gray-800 placeholder-gray-400 shadow-sm focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500 resize-none"
                     />
                   </div>
                 </div>
@@ -198,21 +341,31 @@ export default function RegisterPage() {
 
                 <button
                   type="submit"
-                  disabled={loading}
-                  className="group interactive-hover relative flex w-full items-center justify-center gap-3 rounded-2xl bg-violet-600 hover:bg-violet-700 py-4.5 text-base font-bold text-white shadow-xl shadow-violet-600/20 disabled:opacity-50 transition-all cursor-pointer"
+                  disabled={loading || !isEmailVerified}
+                  className="group interactive-hover relative flex w-full items-center justify-center gap-3 rounded-2xl bg-violet-600 hover:bg-violet-700 py-4.5 text-base font-bold text-white shadow-xl shadow-violet-600/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
                 >
                   {loading ? (
                     <>
                       <Loader2 className="h-5 w-5 animate-spin" />
-                      Registering...
+                      Enrolling...
                     </>
                   ) : (
                     <>
-                      Confirm My Free Registration
+                      Enroll Now
                       <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                     </>
                   )}
                 </button>
+
+                {!isEmailVerified && (
+                  <p className="text-xs font-bold text-amber-600 text-center animate-pulse-slow">
+                    Verify your email with OTP to enable enrollment.
+                  </p>
+                )}
+
+                <p className="text-[10px] text-center text-gray-400 font-semibold mt-1">
+                  Course: Full Stack Web Development + AI
+                </p>
               </form>
             )}
 

@@ -2,23 +2,23 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-violet-100/50 bg-white/75 px-6 py-4 backdrop-blur-md sm:px-12">
+    <header className="sticky top-0 z-50 border-b border-slate-100/80 bg-white/80 px-6 py-2 backdrop-blur-md sm:px-12">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <div className="flex items-center gap-3">
           <Image
             src="/cfi-logo.png"
             alt="Code for India Foundation"
-            width={260}
-            height={104}
+            width={320}
+            height={128}
             className="h-12 w-auto sm:h-16"
             priority
           />
         </div>
         <a
-          href="/register"
-          className="interactive-hover rounded-full bg-primary hover:bg-primary-dark px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-primary/20 sm:text-xs"
+          href="#register"
+          className="rounded-full bg-violet-600 hover:bg-violet-700 px-6 py-3 text-sm font-bold tracking-wide text-white shadow-md shadow-violet-600/10 hover:shadow-violet-600/25 transition-all duration-300"
         >
-          Reserve My Seat
+          Book Free Seat
         </a>
       </div>
     </header>

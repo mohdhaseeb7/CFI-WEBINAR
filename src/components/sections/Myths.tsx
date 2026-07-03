@@ -40,27 +40,27 @@ export default function Myths() {
           {myths.map((m) => (
             <div
               key={m.myth}
-              className="interactive-hover flex flex-col justify-between overflow-hidden rounded-3xl border border-violet-100/50 bg-white shadow-lg shadow-violet-500/5"
+              className="flex flex-col justify-between overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-xl shadow-slate-100/30"
             >
               {/* Myth Row */}
-              <div className="flex items-start gap-4 bg-red-50/40 p-6 lg:p-8">
+              <div className="flex items-start gap-4 bg-red-50/20 p-6 lg:p-8">
                 <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-100 text-xs font-bold text-red-600">
                   ✕
                 </span>
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-red-500">The Myth</span>
-                  <p className="mt-1 font-bold text-gray-900 lg:text-lg leading-snug">{m.myth}</p>
+                  <p className="mt-1 font-bold text-slate-900 lg:text-lg leading-snug">{m.myth}</p>
                 </div>
               </div>
 
               {/* Reality Row */}
-              <div className="flex items-start gap-4 border-t border-gray-50 p-6 lg:p-8">
+              <div className="flex items-start gap-4 border-t border-slate-100 p-6 lg:p-8">
                 <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-xs font-bold text-emerald-600">
                   ✓
                 </span>
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-500">The Reality</span>
-                  <p className="mt-1 text-sm font-semibold text-gray-600 lg:text-base leading-relaxed">{m.reality}</p>
+                  <p className="mt-1 text-sm font-semibold text-slate-500 lg:text-base leading-relaxed">{m.reality}</p>
                 </div>
               </div>
             </div>
@@ -70,8 +70,8 @@ export default function Myths() {
         {/* Section Call to Action */}
         <div className="mt-16 text-center">
           <a
-            href="/register"
-            className="group inline-flex items-center gap-2 rounded-2xl bg-violet-600 hover:bg-violet-700 px-8 py-4 text-sm font-bold text-white shadow-md shadow-violet-600/10 transition-all hover:-translate-y-0.5 hover:shadow-lg lg:text-base"
+            href="#register"
+            className="group inline-flex items-center gap-2 rounded-2xl bg-violet-600 hover:bg-violet-700 px-8 py-4.5 text-sm font-bold text-white shadow-lg shadow-violet-600/10 transition-all hover:scale-[1.02] duration-300"
           >
             Claim My Free Spot Now
             <span className="transition-transform group-hover:translate-x-1">→</span>

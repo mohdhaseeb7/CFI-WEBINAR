@@ -25,7 +25,7 @@ export default function Instructor() {
         </div>
 
         {/* Masterclass Speaker Card */}
-        <div className="interactive-hover overflow-hidden rounded-3xl border border-violet-100 bg-white shadow-xl shadow-violet-500/5">
+        <div className="overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-2xl shadow-slate-100/50">
           <div className="flex flex-col lg:flex-row items-stretch">
             
             {/* Left: Speaker Image */}
@@ -48,20 +48,20 @@ export default function Instructor() {
                   {WEBINAR_CONFIG.instructor.role}
                 </p>
                 
-                <p className="mt-6 text-base leading-relaxed text-gray-600 lg:text-lg">
+                <p className="mt-6 text-base leading-relaxed text-gray-600 lg:text-lg font-medium">
                   {WEBINAR_CONFIG.instructor.bio}
                 </p>
 
                 {/* Speaker Credentials Grid */}
-                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 border-t border-gray-100 pt-8">
+                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 border-t border-slate-100 pt-8">
                   {WEBINAR_CONFIG.instructor.credentials.map((cred, index) => {
                     const Icon = getIconComponent(cred.icon);
                     return (
                       <div key={index} className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet-50 border border-violet-100 text-violet-600">
                           <Icon className="h-4 w-4" />
                         </div>
-                        <span className="text-sm font-semibold text-gray-700">{cred.text}</span>
+                        <span className="text-sm font-semibold text-slate-700">{cred.text}</span>
                       </div>
                     );
                   })}
@@ -69,9 +69,9 @@ export default function Instructor() {
               </div>
 
               {/* Speaker CTA */}
-              <div className="mt-10 pt-4 flex flex-wrap items-center gap-4 border-t border-gray-100/50">
+              <div className="mt-10 pt-4 flex flex-wrap items-center gap-4 border-t border-slate-100/50">
                 <a
-                  href="/register"
+                  href="#register"
                   className="group inline-flex items-center gap-2 rounded-xl bg-violet-600 hover:bg-violet-700 px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-md transition-all duration-300 hover:shadow-lg"
                 >
                   {WEBINAR_CONFIG.instructor.ctaText}

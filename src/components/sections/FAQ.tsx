@@ -54,19 +54,19 @@ export default function FAQ() {
                 key={item.q}
                 className={`overflow-hidden rounded-2xl border transition-all duration-300 ${
                   isOpen
-                    ? "border-violet-200 bg-violet-50/20 shadow-md shadow-violet-500/5"
-                    : "border-gray-100 bg-white hover:border-violet-100 hover:bg-slate-50/50 hover:shadow-sm"
+                    ? "border-slate-200 bg-white shadow-lg shadow-slate-100/40"
+                    : "border-slate-100 bg-white hover:border-slate-200 hover:shadow-sm"
                 }`}
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="flex w-full items-center justify-between px-6 py-5 text-left font-bold text-gray-900 transition-colors lg:px-8 lg:py-6 lg:text-lg"
+                  className="flex w-full items-center justify-between px-6 py-5 text-left font-bold text-slate-900 transition-colors lg:px-8 lg:py-6 lg:text-lg"
                 >
                   <span className="flex items-center gap-3">
-                    <span className="text-gray-800 leading-snug">{item.q}</span>
+                    <span className="text-slate-800 leading-snug">{item.q}</span>
                   </span>
                   <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all ${
-                    isOpen ? "border-violet-300 bg-violet-100 text-violet-600 rotate-180" : "border-gray-200 bg-white text-gray-400"
+                    isOpen ? "border-violet-300 bg-violet-100 text-violet-600 rotate-180" : "border-slate-200 bg-white text-slate-400"
                   }`}>
                     <ChevronDown className="h-4 w-4 shrink-0 transition-transform" />
                   </div>
@@ -75,7 +75,7 @@ export default function FAQ() {
                 {/* Animated CSS Grid Accordion */}
                 <div className={`accordion-content ${isOpen ? "open" : ""}`}>
                   <div className="accordion-inner">
-                    <div className="border-t border-violet-100/50 bg-violet-50/10 px-6 pb-6 pt-5 text-sm font-semibold leading-relaxed text-gray-600 lg:px-8 lg:pb-7 lg:text-base">
+                    <div className="border-t border-slate-100 bg-slate-50/20 px-6 pb-6 pt-5 text-sm font-semibold leading-relaxed text-slate-500 lg:px-8 lg:pb-7 lg:text-base">
                       {item.a}
                     </div>
                   </div>
@@ -88,8 +88,8 @@ export default function FAQ() {
         {/* FAQ Section CTA */}
         <div className="mt-16 text-center">
           <a
-            href="/register"
-            className="group inline-flex items-center gap-2 rounded-2xl bg-violet-600 hover:bg-violet-700 px-8 py-4 text-sm font-bold text-white shadow-md shadow-violet-600/10 transition-all hover:-translate-y-0.5 hover:shadow-lg lg:text-base"
+            href="#register"
+            className="group inline-flex items-center gap-2 rounded-2xl bg-violet-600 hover:bg-violet-700 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-violet-600/10 transition-all hover:scale-[1.02] duration-300"
           >
             Claim My Free Spot
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

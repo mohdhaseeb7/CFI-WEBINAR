@@ -1,55 +1,64 @@
-import { Compass, HelpCircle } from "lucide-react";
+import { BookOpen, AlertCircle, Zap } from "lucide-react";
 import { WEBINAR_CONFIG } from "@/config/webinar";
 
 export default function WhyExists() {
   return (
-    <section className="relative overflow-hidden bg-slate-50/50 px-6 py-24 sm:px-12 lg:px-20 lg:py-32">
+    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50/40 to-white px-6 py-20 sm:px-12 lg:px-20 lg:py-28 border-y border-slate-100/60">
       {/* Decorative Blur Spheres */}
       <div className="pointer-events-none absolute -right-36 -top-24 h-[400px] w-[400px] rounded-full bg-violet-200/25 blur-[100px]" />
       <div className="pointer-events-none absolute -left-36 -bottom-24 h-[400px] w-[400px] rounded-full bg-fuchsia-200/20 blur-[100px]" />
       
-      <div className="relative mx-auto max-w-4xl text-center">
+      <div className="relative mx-auto max-w-7xl">
         
         {/* Header */}
-        <h2 className="mb-8 text-3xl font-extrabold text-foreground sm:text-4xl lg:text-5xl tracking-tight">
-          {WEBINAR_CONFIG.whyJoin.title}
-        </h2>
-
-        {/* Narrative columns or blocks */}
-        <div className="mx-auto max-w-2xl text-center mb-10 space-y-4">
-          <p className="text-lg leading-relaxed text-muted lg:text-xl font-medium">
-            {WEBINAR_CONFIG.whyJoin.introLeading}
-          </p>
-          <p className="text-base leading-relaxed text-gray-500 lg:text-lg">
-            {WEBINAR_CONFIG.whyJoin.introBody}
+        <div className="text-center mb-16">
+          <p className="text-xs font-bold uppercase tracking-wider text-violet-600">The Learning Gap</p>
+          <h2 className="mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl lg:text-5xl tracking-tight">
+            A CS degree alone won&apos;t make you job-ready.
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-slate-500 text-sm sm:text-base font-semibold leading-relaxed">
+            {WEBINAR_CONFIG.whyJoin.introLeading} {WEBINAR_CONFIG.whyJoin.introBody}
           </p>
         </div>
 
-        {/* Core takeaway card */}
-        <div className="group relative mx-auto max-w-2xl overflow-hidden rounded-3xl border border-violet-100 bg-white p-8 shadow-xl shadow-violet-500/5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-2xl lg:p-10">
-          <div className="absolute -right-4 -top-4 rounded-full bg-violet-50/50 p-6 text-violet-100/50 transition-colors group-hover:text-violet-100/80">
-            <HelpCircle className="h-16 w-16" />
-          </div>
+        {/* 3-Column Comparative Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           
-          <p className="relative text-base font-semibold leading-relaxed text-gray-900 lg:text-lg">
-            &ldquo;{WEBINAR_CONFIG.whyJoin.quote}&rdquo;
-          </p>
-          
-          <div className="mt-6 flex items-center justify-center gap-1.5 text-xs font-bold text-violet-500">
-            {WEBINAR_CONFIG.whyJoin.badge}
+          {/* Card 1: Outdated Theory */}
+          <div className="bg-white border border-slate-100 rounded-3xl p-8 shadow-xl shadow-slate-100/50 hover:-translate-y-1 transition-all duration-300">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-50 text-rose-500 mb-6">
+              <BookOpen className="h-5 w-5" />
+            </div>
+            <h3 className="text-lg font-bold text-slate-900">Outdated CS Theories</h3>
+            <p className="mt-3 text-sm text-slate-500 font-semibold leading-relaxed">
+              Traditional universities focus heavily on theoretical textbooks, leaving students with zero practical experience in building and deploying real-world applications.
+            </p>
           </div>
+
+          {/* Card 2: Tutorial Hell */}
+          <div className="bg-white border border-slate-100 rounded-3xl p-8 shadow-xl shadow-slate-100/50 hover:-translate-y-1 transition-all duration-300">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-50 text-amber-500 mb-6">
+              <AlertCircle className="h-5 w-5" />
+            </div>
+            <h3 className="text-lg font-bold text-slate-900">Tutorial Hell</h3>
+            <p className="mt-3 text-sm text-slate-500 font-semibold leading-relaxed">
+              Self-studying via YouTube often traps you in tutorial hell—copying and pasting code from video streams without actually understanding the engineering core.
+            </p>
+          </div>
+
+          {/* Card 3: Project-First Webinar */}
+          <div className="bg-white border border-slate-100 rounded-3xl p-8 shadow-xl shadow-slate-100/50 hover:-translate-y-1 transition-all duration-300 ring-2 ring-violet-600/5 bg-gradient-to-b from-violet-50/10 to-transparent">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-100 text-violet-600 mb-6">
+              <Zap className="h-5 w-5" />
+            </div>
+            <h3 className="text-lg font-bold text-slate-900">Project-First Method</h3>
+            <p className="mt-3 text-sm text-slate-500 font-semibold leading-relaxed">
+              {WEBINAR_CONFIG.whyJoin.quote}
+            </p>
+          </div>
+
         </div>
 
-        {/* CTA link under this section */}
-        <div className="mt-12">
-          <a
-            href="/register"
-            className="group inline-flex items-center gap-2 rounded-2xl bg-violet-600 hover:bg-violet-700 px-8 py-4 text-sm font-bold text-white shadow-md shadow-violet-600/10 transition-all hover:-translate-y-0.5 hover:shadow-lg lg:text-base"
-          >
-            {WEBINAR_CONFIG.whyJoin.ctaText}
-            <span className="transition-transform group-hover:translate-x-1">→</span>
-          </a>
-        </div>
       </div>
     </section>
   );
